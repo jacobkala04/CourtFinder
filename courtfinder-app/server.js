@@ -8,16 +8,30 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
+const dbConfig = {
+    host: process.env.DB_HOST || 'localhost',
+    user: process.env.DB_USER || 'root',
+    password: process.env.DB_PASSWORD ?? '',
+    database: process.env.DB_NAME || 'CourtFinder'
+};
+
 const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'REDACTED',
-    database: 'CourtFinder'
+    host: dbConfig.host,
+    user: dbConfig.user,
+    password: dbConfig.password,
+    database: dbConfig.database
 });
 
 db.connect((err) => {
     if (err) {
         console.error('Failed to connect to CourtFinder database:', err.message);
+        console.error('Database config:', {
+            host: dbConfig.host,
+            user: dbConfig.user,
+            database: dbConfig.database,
+            passwordSet: dbConfig.password.length > 0
+        });
+        console.error('Override with DB_HOST, DB_USER, DB_PASSWORD, and DB_NAME if needed.');
         process.exit(1);
     }
     console.log('Connected to CourtFinder database successfully');
