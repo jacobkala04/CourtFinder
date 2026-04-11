@@ -11,13 +11,13 @@ cd CourtFinder
 
 ```bash
 mysql -u root -p -e "CREATE DATABASE CourtFinder;"
-mysql -u root -p CourtFinder < courtfinder-app/courtfinder.sql
+mysql -u root -p CourtFinder < db/courtfinder.sql
 ```
 
 ### 3. Install dependencies and run
 
 ```bash
-cd courtfinder-app
+cd backend
 npm install express mysql2 cors
 node server.js
 ```

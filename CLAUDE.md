@@ -9,7 +9,7 @@ CourtFinder is a user-facing basketball session finder. Players browse open game
 ## How to Run
 
 ```bash
-cd courtfinder-app
+cd backend
 npm install express mysql2 cors
 node server.js
 ```
@@ -19,11 +19,18 @@ App runs at `http://localhost:3001`. Terminal prints `Connected to CourtFinder d
 ## File Structure
 
 ```
-courtfinder-app/
-├── server.js        # Express backend + API routes
-├── package.json
-└── public/
-    └── index.html   # Entire frontend (HTML + CSS + JS in one file)
+CourtFinder/
+├── README.md
+├── docs/            # Diagrams, screenshots, report materials
+├── db/
+│   └── courtfinder.sql  # Schema + seed data
+├── backend/
+│   ├── server.js    # Express backend + API routes
+│   └── package.json
+├── frontend/
+│   └── index.html   # Entire frontend (HTML + CSS + JS in one file)
+├── reports/         # Written reports and deliverables
+└── roles/           # Each member's individual contributions
 ```
 
 ## Architecture
@@ -32,7 +39,7 @@ courtfinder-app/
 1. **Generic CRUD** — `GET/POST/PUT/DELETE /api/:table` and `/api/:table/:id` handle all 11 tables dynamically. Table names are validated against `tableKeys` to prevent injection.
 2. **Browse endpoints** — enriched JOIN queries for display: `/api/browse/sessions`, `/api/browse/players`, `/api/browse/requests/:playerId`. These return human-readable data (court names, usernames) rather than raw IDs.
 
-**Frontend (`public/index.html`):** Single-page app with a tab bar. Five tabs each handle a distinct user action. App state (`currentPlayer`, `players`, `sessions`, `courts`) is loaded once at init and reused across tabs. Status messages auto-dismiss after 4 seconds (important — recorded for demo video).
+**Frontend (`frontend/index.html`):** Single-page app with a tab bar. Five tabs each handle a distinct user action. App state (`currentPlayer`, `players`, `sessions`, `courts`) is loaded once at init and reused across tabs. Status messages auto-dismiss after 4 seconds (important — recorded for demo video).
 
 ## Tab Structure
 
