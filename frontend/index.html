@@ -8,111 +8,131 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: Arial, sans-serif; background: #f3f4f6; color: #222; }
 
-    /* Header */
-    header {
+    /* ── Auth overlay ─────────────────────────────────────────────────────── */
+    #authOverlay {
+      position: fixed; inset: 0;
       background: #1a1a2e;
-      color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 1000;
+    }
+    #authBox {
+      background: #fff; border-radius: 10px;
+      padding: 36px 40px; width: 420px; max-width: 95vw;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    .auth-logo {
+      text-align: center; font-size: 26px; font-weight: bold;
+      color: #1a1a2e; margin-bottom: 4px;
+    }
+    .auth-subtitle {
+      text-align: center; color: #888; font-size: 13px; margin-bottom: 24px;
+    }
+    .auth-tabs {
+      display: flex; border-bottom: 2px solid #e5e7eb; margin-bottom: 22px;
+    }
+    .auth-tab {
+      flex: 1; padding: 10px; border: none; background: none;
+      font-size: 14px; font-weight: bold; color: #888; cursor: pointer;
+      border-bottom: 3px solid transparent; margin-bottom: -2px;
+    }
+    .auth-tab.active { color: #2563eb; border-bottom-color: #2563eb; }
+    #authMsg { font-size: 13px; margin-top: 14px; text-align: center; min-height: 18px; }
+    #authMsg.error   { color: #dc2626; }
+    #authMsg.success { color: #16a34a; }
+
+    /* ── Complete profile modal ───────────────────────────────────────────── */
+    #cpModal {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.6);
+      display: none; align-items: center; justify-content: center;
+      z-index: 900;
+    }
+    #cpModal.show { display: flex; }
+    #cpBox {
+      background: #fff; border-radius: 10px;
+      padding: 32px 36px; width: 440px; max-width: 95vw;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    }
+    #cpBox h2 { font-size: 20px; color: #1a1a2e; margin-bottom: 6px; }
+    #cpBox .cp-sub { color: #666; font-size: 13px; margin-bottom: 22px; }
+
+    /* ── Header ───────────────────────────────────────────────────────────── */
+    header {
+      background: #1a1a2e; color: #fff;
       padding: 14px 28px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      display: flex; justify-content: space-between; align-items: center;
     }
     header h1 { font-size: 20px; letter-spacing: 0.5px; }
-    .player-bar { display: flex; align-items: center; gap: 8px; font-size: 14px; }
-    .player-bar select {
-      padding: 5px 10px;
-      border-radius: 4px;
-      border: none;
-      font-size: 14px;
-      cursor: pointer;
+    .user-bar { display: flex; align-items: center; gap: 10px; font-size: 14px; }
+    .user-name { font-weight: bold; }
+    .role-chip {
+      padding: 2px 9px; border-radius: 999px;
+      font-size: 11px; font-weight: bold;
     }
+    .chip-player    { background: #dbeafe; color: #1e40af; }
+    .chip-organizer { background: #fef9c3; color: #854d0e; }
+    .chip-moderator { background: #f3e8ff; color: #7e22ce; }
 
-    /* Nav */
+    /* ── Nav ──────────────────────────────────────────────────────────────── */
     nav {
-      background: #fff;
-      border-bottom: 2px solid #e5e7eb;
-      display: flex;
-      padding: 0 12px;
+      background: #fff; border-bottom: 2px solid #e5e7eb;
+      display: flex; padding: 0 12px;
     }
     nav button {
-      padding: 13px 18px;
-      border: none;
-      background: none;
-      font-size: 14px;
-      font-weight: 500;
-      color: #666;
-      cursor: pointer;
-      border-bottom: 3px solid transparent;
-      margin-bottom: -2px;
+      padding: 13px 18px; border: none; background: none;
+      font-size: 14px; font-weight: 500; color: #666;
+      cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px;
     }
     nav button:hover { color: #1a1a2e; }
     nav button.active { color: #1a1a2e; border-bottom-color: #2563eb; font-weight: bold; }
 
-    /* Layout */
+    /* ── Layout ───────────────────────────────────────────────────────────── */
     main { max-width: 1000px; margin: 24px auto; padding: 0 16px; }
     .section { display: none; }
     .section.active { display: block; }
 
     .card {
-      background: #fff;
-      border: 1px solid #e5e7eb;
-      border-radius: 6px;
-      padding: 22px;
-      margin-bottom: 18px;
+      background: #fff; border: 1px solid #e5e7eb;
+      border-radius: 6px; padding: 22px; margin-bottom: 18px;
     }
     .card h2 { font-size: 17px; margin-bottom: 18px; color: #1a1a2e; }
     .card h3 {
-      font-size: 14px;
-      font-weight: bold;
-      color: #555;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      border-bottom: 1px solid #e5e7eb;
-      padding-bottom: 10px;
-      margin-bottom: 16px;
+      font-size: 14px; font-weight: bold; color: #555;
+      text-transform: uppercase; letter-spacing: 0.5px;
+      border-bottom: 1px solid #e5e7eb; padding-bottom: 10px; margin-bottom: 16px;
     }
 
-    /* Tables */
+    /* ── Tables ───────────────────────────────────────────────────────────── */
     table { width: 100%; border-collapse: collapse; font-size: 14px; }
     th {
-      background: #f9fafb;
-      text-align: left;
-      padding: 9px 12px;
-      font-size: 12px;
-      font-weight: bold;
-      text-transform: uppercase;
-      letter-spacing: 0.4px;
-      color: #777;
-      border-bottom: 2px solid #e5e7eb;
+      background: #f9fafb; text-align: left; padding: 9px 12px;
+      font-size: 12px; font-weight: bold; text-transform: uppercase;
+      letter-spacing: 0.4px; color: #777; border-bottom: 2px solid #e5e7eb;
     }
     td { padding: 10px 12px; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
     tr:last-child td { border-bottom: none; }
     tr:hover td { background: #fafafa; }
     .sub-text { font-size: 12px; color: #999; margin-top: 2px; }
 
-    /* Badges */
+    /* ── Badges ───────────────────────────────────────────────────────────── */
     .badge {
-      display: inline-block;
-      padding: 3px 9px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: bold;
+      display: inline-block; padding: 3px 9px;
+      border-radius: 999px; font-size: 12px; font-weight: bold;
     }
     .badge-open, .badge-available, .badge-scheduled { background: #dcfce7; color: #166534; }
     .badge-full, .badge-in-progress                 { background: #fef9c3; color: #854d0e; }
     .badge-closed, .badge-completed, .badge-cancelled { background: #e5e7eb; color: #555; }
-    .badge-pending                 { background: #dbeafe; color: #1e40af; }
-    .badge-accepted                { background: #dcfce7; color: #166534; }
-    .badge-rejected                { background: #fee2e2; color: #991b1b; }
+    .badge-pending   { background: #dbeafe; color: #1e40af; }
+    .badge-accepted  { background: #dcfce7; color: #166534; }
+    .badge-approved  { background: #dcfce7; color: #166534; }
+    .badge-rejected, .badge-denied { background: #fee2e2; color: #991b1b; }
+    .badge-resolved  { background: #e5e7eb; color: #555; }
+    .badge-dismissed { background: #f3f4f6; color: #777; }
 
-    /* Buttons */
+    /* ── Buttons ──────────────────────────────────────────────────────────── */
     .btn {
-      padding: 6px 14px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 13px;
-      font-weight: bold;
+      padding: 6px 14px; border: none; border-radius: 4px;
+      cursor: pointer; font-size: 13px; font-weight: bold;
     }
     .btn-primary { background: #2563eb; color: #fff; }
     .btn-primary:hover { background: #1d4ed8; }
@@ -124,36 +144,25 @@
     .btn-muted:hover   { background: #d1d5db; }
     .btn-sm { padding: 4px 10px; font-size: 12px; }
 
-    /* Inline join form */
+    /* ── Join form ────────────────────────────────────────────────────────── */
     .join-form {
-      background: #f9fafb;
-      border: 1px solid #e5e7eb;
-      border-radius: 4px;
-      padding: 12px;
-      margin-top: 8px;
+      background: #f9fafb; border: 1px solid #e5e7eb;
+      border-radius: 4px; padding: 12px; margin-top: 8px;
     }
     .join-form textarea {
-      width: 100%;
-      padding: 7px 9px;
-      border: 1px solid #d1d5db;
-      border-radius: 4px;
-      font-size: 13px;
-      resize: vertical;
-      min-height: 60px;
-      margin-bottom: 8px;
+      width: 100%; padding: 7px 9px;
+      border: 1px solid #d1d5db; border-radius: 4px;
+      font-size: 13px; resize: vertical; min-height: 60px; margin-bottom: 8px;
     }
 
-    /* Forms */
+    /* ── Forms ────────────────────────────────────────────────────────────── */
     .form-row { margin-bottom: 14px; }
     .form-row label { display: block; font-size: 13px; font-weight: bold; margin-bottom: 4px; color: #555; }
     .form-row input,
     .form-row select,
     .form-row textarea {
-      width: 100%;
-      padding: 8px 10px;
-      border: 1px solid #d1d5db;
-      border-radius: 4px;
-      font-size: 14px;
+      width: 100%; padding: 8px 10px;
+      border: 1px solid #d1d5db; border-radius: 4px; font-size: 14px;
     }
     .form-row textarea { resize: vertical; min-height: 80px; }
     .form-row input:focus,
@@ -161,59 +170,162 @@
     .form-row textarea:focus { outline: none; border-color: #2563eb; }
     .form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
 
-    /* Profile */
+    /* ── Profile ──────────────────────────────────────────────────────────── */
     .profile-stat { margin-bottom: 12px; }
     .profile-stat label { font-size: 12px; font-weight: bold; text-transform: uppercase; color: #999; display: block; margin-bottom: 2px; }
     .profile-stat .val { font-size: 15px; }
     .profile-divider { border: none; border-top: 1px solid #e5e7eb; margin: 18px 0; }
 
-    /* Filter bar */
+    /* ── Filter bar ───────────────────────────────────────────────────────── */
     .filter-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
     .filter-bar label { font-size: 13px; font-weight: bold; color: #555; }
     .filter-bar select { padding: 6px 10px; font-size: 13px; border: 1px solid #d1d5db; border-radius: 4px; }
 
-    /* Status toast */
+    /* ── Status toast ─────────────────────────────────────────────────────── */
     #status {
-      position: fixed;
-      bottom: 22px;
-      right: 22px;
-      padding: 13px 20px;
-      border-radius: 6px;
-      font-size: 14px;
-      font-weight: bold;
-      display: none;
-      max-width: 380px;
-      z-index: 999;
+      position: fixed; bottom: 22px; right: 22px;
+      padding: 13px 20px; border-radius: 6px;
+      font-size: 14px; font-weight: bold;
+      display: none; max-width: 380px; z-index: 999;
       box-shadow: 0 4px 14px rgba(0,0,0,0.15);
     }
     #status.success { display: block; background: #dcfce7; color: #166534; border: 1px solid #86efac; }
     #status.error   { display: block; background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
 
     .empty { text-align: center; color: #aaa; padding: 30px; font-style: italic; }
+
+    /* ── Info box ─────────────────────────────────────────────────────────── */
+    .info-box {
+      background: #eff6ff; border: 1px solid #bfdbfe;
+      border-radius: 6px; padding: 14px 16px;
+      font-size: 13px; color: #1e40af; margin-bottom: 16px;
+    }
+    .warn-box {
+      background: #fffbeb; border: 1px solid #fcd34d;
+      border-radius: 6px; padding: 14px 16px;
+      font-size: 13px; color: #92400e; margin-bottom: 16px;
+    }
   </style>
 </head>
 <body>
 
+<!-- ── Auth overlay ──────────────────────────────────────────────────────── -->
+<div id="authOverlay">
+  <div id="authBox">
+    <div class="auth-logo">CourtFinder</div>
+    <div class="auth-subtitle">Find your next basketball game</div>
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="tabLoginBtn" onclick="showAuthTab('login')">Login</button>
+      <button class="auth-tab"        id="tabSignupBtn" onclick="showAuthTab('signup')">Sign Up</button>
+    </div>
+
+    <!-- Login pane -->
+    <div id="loginPane">
+      <div class="form-row">
+        <label>Username</label>
+        <input type="text" id="loginUser" placeholder="Enter your username"
+               autocomplete="username" onkeydown="if(event.key==='Enter')doLogin()" />
+      </div>
+      <div class="form-row">
+        <label>Password</label>
+        <input type="password" id="loginPass" placeholder="Enter your password"
+               autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()" />
+      </div>
+      <button class="btn btn-primary" style="width:100%;padding:10px;font-size:14px"
+              onclick="doLogin()">Login</button>
+    </div>
+
+    <!-- Signup pane -->
+    <div id="signupPane" style="display:none">
+      <div class="form-row">
+        <label>Username</label>
+        <input type="text" id="signupUser" placeholder="Choose a username"
+               autocomplete="username" />
+      </div>
+      <div class="form-row">
+        <label>Email</label>
+        <input type="email" id="signupEmail" placeholder="your@email.com"
+               autocomplete="email" />
+      </div>
+      <div class="form-row">
+        <label>Password</label>
+        <input type="password" id="signupPass" placeholder="Create a password"
+               autocomplete="new-password" />
+      </div>
+      <div class="form-row">
+        <label>Confirm Password</label>
+        <input type="password" id="signupConfirm" placeholder="Repeat your password"
+               autocomplete="new-password"
+               onkeydown="if(event.key==='Enter')doSignup()" />
+      </div>
+      <button class="btn btn-primary" style="width:100%;padding:10px;font-size:14px"
+              onclick="doSignup()">Create Account</button>
+    </div>
+
+    <div id="authMsg"></div>
+  </div>
+</div>
+
+<!-- ── Complete profile modal ────────────────────────────────────────────── -->
+<div id="cpModal">
+  <div id="cpBox">
+    <h2>Complete Your Profile</h2>
+    <p class="cp-sub">
+      Set up your player profile to start joining games.
+      You can always update these details later in My Profile.
+    </p>
+    <div class="form-row">
+      <label>Skill Level</label>
+      <select id="cpSkill">
+        <option value="">-- Select skill level --</option>
+        <option value="Beginner">Beginner</option>
+        <option value="Intermediate">Intermediate</option>
+        <option value="Advanced">Advanced</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <label>Position</label>
+      <select id="cpPos">
+        <option value="">-- Select position --</option>
+        <option value="Point Guard">Point Guard</option>
+        <option value="Shooting Guard">Shooting Guard</option>
+        <option value="Small Forward">Small Forward</option>
+        <option value="Power Forward">Power Forward</option>
+        <option value="Center">Center</option>
+      </select>
+    </div>
+    <div id="cpMsg" style="color:#dc2626;font-size:13px;min-height:18px;margin-bottom:10px"></div>
+    <div style="display:flex;gap:10px">
+      <button class="btn btn-primary" onclick="doCompleteProfile()">Save Profile</button>
+      <button class="btn btn-muted"   onclick="dismissCompleteProfile()">Skip for now</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Header ─────────────────────────────────────────────────────────────── -->
 <header>
   <h1>CourtFinder</h1>
-  <div class="player-bar">
-    Playing as:
-    <select id="playerSelect">
-      <option value="">-- Select Player --</option>
-    </select>
+  <div class="user-bar" id="userBar" style="display:none">
+    <span class="user-name" id="userGreeting"></span>
+    <span class="role-chip" id="roleChip"></span>
+    <button class="btn btn-muted btn-sm" onclick="logout()">Logout</button>
   </div>
 </header>
 
-<nav>
+<!-- ── Nav ───────────────────────────────────────────────────────────────── -->
+<nav id="mainNav" style="display:none">
   <button data-tab="games"    class="active" onclick="showTab('games')">Find Games</button>
   <button data-tab="courts"   onclick="showTab('courts')">Courts</button>
   <button data-tab="requests" onclick="showTab('requests')">My Requests</button>
   <button data-tab="profile"  onclick="showTab('profile')">My Profile</button>
   <button data-tab="feedback" onclick="showTab('feedback')">Leave Feedback</button>
   <button data-tab="rate"     onclick="showTab('rate')">Rate &amp; Report</button>
+  <button data-tab="admin"    onclick="showTab('admin')"
+          id="adminTabBtn" style="display:none">Admin Panel</button>
 </nav>
 
-<main>
+<!-- ── Main ──────────────────────────────────────────────────────────────── -->
+<main id="mainContent" style="display:none">
 
   <!-- Find Games -->
   <div id="tab-games" class="section active">
@@ -307,8 +419,8 @@
           </div>
         </div>
         <div class="form-row">
-          <label>Score (1–10)</label>
-          <input type="number" id="rateScore" min="1" max="10" placeholder="1–10" required style="width:140px" />
+          <label>Score (1–5)</label>
+          <input type="number" id="rateScore" min="1" max="5" placeholder="1–5" required style="width:140px" />
         </div>
         <div class="form-row">
           <label>Comments</label>
@@ -336,26 +448,235 @@
     </div>
   </div>
 
+  <!-- Admin Panel (moderators only) -->
+  <div id="tab-admin" class="section">
+    <div class="card">
+      <h2>Organizer Requests</h2>
+      <div id="orgRequestsList"><div class="empty">Loading...</div></div>
+    </div>
+    <div class="card">
+      <h2>User Reports</h2>
+      <div id="adminReportsList"><div class="empty">Loading...</div></div>
+    </div>
+    <div class="card">
+      <h2>User Management</h2>
+      <p style="color:#666;font-size:13px;margin-bottom:16px">
+        Promote regular users to moderator. Moderators gain access to this admin panel.
+      </p>
+      <div id="userMgmtList"><div class="empty">Loading...</div></div>
+    </div>
+  </div>
+
 </main>
 
 <div id="status"></div>
 
 <script>
-  // ── State ───────────────────────────────────────────────────────────────────
-  let currentPlayer = null;  // { PlayerID, UserID, Username, SkillLevel, Position, GamesPlayed }
-  let players    = [];
-  let sessions   = [];       // enriched: includes CourtName, OrganizerName
-  let courts     = [];
-  let users      = [];
-  let moderators = [];
+  // ── State ────────────────────────────────────────────────────────────────────
+  let authToken   = localStorage.getItem('cf_token');
+  let currentUser = null;   // { userID, username, playerID, organizerID, isModerator }
+  let currentPlayer = null; // entry from players[] matching currentUser.playerID
+  let players     = [];
+  let sessions    = [];
+  let courts      = [];
+  let users       = [];
+  let moderators  = [];
 
-  // ── Init ────────────────────────────────────────────────────────────────────
+  // ── HTTP helpers (all requests carry the auth token) ─────────────────────────
+  async function authFetch(url, options = {}) {
+    const headers = { ...(options.headers || {}) };
+    if (authToken) headers['Authorization'] = `Bearer ${authToken}`;
+    if (options.body) headers['Content-Type'] = 'application/json';
+
+    const res  = await fetch(url, { ...options, headers });
+    const data = await res.json();
+
+    if (res.status === 401) {
+      if (authToken) {
+        // Mid-session token expiry — force re-login
+        localStorage.removeItem('cf_token');
+        authToken = null;
+        location.reload();
+      }
+      throw new Error(data.error || 'Authentication failed');
+    }
+    if (!res.ok) throw new Error(data.error || 'Request failed');
+    return data;
+  }
+
+  async function get(url)          { return authFetch(url); }
+  async function post(url, body)   { return authFetch(url, { method: 'POST',   body: JSON.stringify(body) }); }
+  async function put(url, id, body){ return authFetch(`${url}/${id}`, { method: 'PUT', body: JSON.stringify(body) }); }
+  async function del(url, id)      { return authFetch(`${url}/${id}`, { method: 'DELETE' }); }
+
   async function safeGet(url) {
     try { return await get(url); }
     catch (e) { console.error(`GET ${url} failed:`, e.message); return []; }
   }
 
+  // ── Auth overlay ─────────────────────────────────────────────────────────────
+  function showAuthTab(tab) {
+    document.getElementById('loginPane').style.display  = tab === 'login'  ? '' : 'none';
+    document.getElementById('signupPane').style.display = tab === 'signup' ? '' : 'none';
+    document.getElementById('tabLoginBtn').classList.toggle('active',  tab === 'login');
+    document.getElementById('tabSignupBtn').classList.toggle('active', tab === 'signup');
+    document.getElementById('authMsg').className = '';
+    document.getElementById('authMsg').textContent = '';
+  }
+
+  function setAuthMsg(type, msg) {
+    const el = document.getElementById('authMsg');
+    el.className   = type;
+    el.textContent = msg;
+  }
+
+  async function doLogin() {
+    const username = document.getElementById('loginUser').value.trim();
+    const password = document.getElementById('loginPass').value;
+    if (!username || !password) {
+      setAuthMsg('error', 'Please enter your username and password.');
+      return;
+    }
+    try {
+      const data = await authFetch('/api/auth/login', {
+        method: 'POST', body: JSON.stringify({ username, password })
+      });
+      authToken = data.token;
+      localStorage.setItem('cf_token', authToken);
+      currentUser = data.user;
+      hideAuthOverlay();
+      await loadApp();
+    } catch (e) {
+      setAuthMsg('error', e.message);
+    }
+  }
+
+  async function doSignup() {
+    const username = document.getElementById('signupUser').value.trim();
+    const email    = document.getElementById('signupEmail').value.trim();
+    const password = document.getElementById('signupPass').value;
+    const confirm  = document.getElementById('signupConfirm').value;
+
+    if (!username || !email || !password) {
+      setAuthMsg('error', 'Username, email, and password are required.');
+      return;
+    }
+    if (password !== confirm) {
+      setAuthMsg('error', 'Passwords do not match.');
+      return;
+    }
+    if (password.length < 6) {
+      setAuthMsg('error', 'Password must be at least 6 characters.');
+      return;
+    }
+    try {
+      const data = await authFetch('/api/auth/signup', {
+        method: 'POST', body: JSON.stringify({ username, email, password })
+      });
+      authToken = data.token;
+      localStorage.setItem('cf_token', authToken);
+      currentUser = data.user;
+      hideAuthOverlay();
+      await loadApp();
+      // New accounts have no player profile — prompt them
+      if (!currentUser.playerID) showCompleteProfile();
+    } catch (e) {
+      setAuthMsg('error', e.message);
+    }
+  }
+
+  function logout() {
+    localStorage.removeItem('cf_token');
+    authToken   = null;
+    currentUser = null;
+    location.reload();
+  }
+
+  function hideAuthOverlay() {
+    document.getElementById('authOverlay').style.display = 'none';
+    document.getElementById('userBar').style.display = '';
+    document.getElementById('mainNav').style.display = '';
+    document.getElementById('mainContent').style.display = '';
+  }
+
+  // ── Complete profile modal ────────────────────────────────────────────────────
+  function showCompleteProfile() {
+    document.getElementById('cpModal').classList.add('show');
+  }
+
+  function dismissCompleteProfile() {
+    document.getElementById('cpModal').classList.remove('show');
+    showStatus('info', 'You can complete your profile anytime in My Profile.');
+  }
+
+  async function doCompleteProfile() {
+    const skillLevel = document.getElementById('cpSkill').value;
+    const position   = document.getElementById('cpPos').value;
+    const msgEl      = document.getElementById('cpMsg');
+
+    if (!skillLevel || !position) {
+      msgEl.textContent = 'Please select both skill level and position.';
+      return;
+    }
+    msgEl.textContent = '';
+
+    try {
+      const data = await post('/api/auth/complete-profile', { skillLevel, position });
+      authToken = data.token;
+      localStorage.setItem('cf_token', authToken);
+      currentUser.playerID = data.playerID;
+
+      // Reload players list and sync currentPlayer
+      players = await safeGet('/api/browse/players');
+      syncCurrentPlayer();
+
+      document.getElementById('cpModal').classList.remove('show');
+      showStatus('success', 'Player profile created! You can now join games.');
+      if (isTabActive('profile')) renderProfile();
+    } catch (e) {
+      msgEl.textContent = e.message;
+    }
+  }
+
+  // ── App init ─────────────────────────────────────────────────────────────────
   async function init() {
+    if (!authToken) {
+      // No token — show login
+      return;
+    }
+
+    // Validate token and fetch fresh user state
+    try {
+      currentUser = await authFetch('/api/auth/me');
+    } catch {
+      localStorage.removeItem('cf_token');
+      authToken = null;
+      return; // authOverlay stays visible
+    }
+
+    hideAuthOverlay();
+    await loadApp();
+  }
+
+  async function loadApp() {
+    // Update header
+    document.getElementById('userGreeting').textContent = currentUser.username;
+    const chip = document.getElementById('roleChip');
+    if (currentUser.isModerator) {
+      chip.textContent  = 'Moderator';
+      chip.className    = 'role-chip chip-moderator';
+      document.getElementById('adminTabBtn').style.display = '';
+    } else if (currentUser.organizerID) {
+      chip.textContent = 'Organizer';
+      chip.className   = 'role-chip chip-organizer';
+    } else if (currentUser.playerID) {
+      chip.textContent = 'Player';
+      chip.className   = 'role-chip chip-player';
+    } else {
+      chip.textContent = '';
+    }
+
+    // Load app data in parallel
     [players, sessions, courts, users, moderators] = await Promise.all([
       safeGet('/api/browse/players'),
       safeGet('/api/browse/sessions'),
@@ -364,41 +685,45 @@
       safeGet('/api/Moderator'),
     ]);
 
-    // Player selector
-    const pSel = document.getElementById('playerSelect');
-    players.forEach(p => pSel.appendChild(makeOption(p.PlayerID, p.Username)));
+    syncCurrentPlayer();
 
-    // Session dropdowns (feedback + rate tabs)
+    // Populate session dropdowns
     ['feedbackSession', 'rateSession'].forEach(id => {
       const sel = document.getElementById(id);
+      sel.innerHTML = '<option value="">-- Select a session --</option>';
       sessions.forEach(s => {
-        const dt = fmtDate(s.DateTime);
-        sel.appendChild(makeOption(s.SessionID, `${s.CourtName} — ${s.GameFormat || '?'} (${dt})`));
+        sel.appendChild(makeOption(s.SessionID,
+          `${s.CourtName} — ${s.GameFormat || '?'} (${fmtDate(s.DateTime)})`));
       });
     });
 
-    // Player dropdown for rating
+    // Player dropdown for rating (exclude self)
     const rateSel = document.getElementById('ratePlayer');
-    players.forEach(p => rateSel.appendChild(makeOption(p.PlayerID, p.Username)));
+    rateSel.innerHTML = '<option value="">-- Select player --</option>';
+    players.forEach(p => {
+      if (p.PlayerID !== currentUser.playerID)
+        rateSel.appendChild(makeOption(p.PlayerID, p.Username));
+    });
 
-    // User dropdown for reporting
+    // User dropdown for reporting (exclude self)
     const repSel = document.getElementById('reportUser');
-    users.forEach(u => repSel.appendChild(makeOption(u.UserID, u.Username)));
+    repSel.innerHTML = '<option value="">-- Select user --</option>';
+    users.forEach(u => {
+      if (u.UserID !== currentUser.userID)
+        repSel.appendChild(makeOption(u.UserID, u.Username));
+    });
 
     renderSessions();
     renderCourts();
   }
 
-  // ── Player context ──────────────────────────────────────────────────────────
-  document.getElementById('playerSelect').addEventListener('change', e => {
-    const id = parseInt(e.target.value);
-    currentPlayer = players.find(p => p.PlayerID === id) || null;
+  function syncCurrentPlayer() {
+    currentPlayer = currentUser.playerID
+      ? players.find(p => p.PlayerID === currentUser.playerID) || null
+      : null;
+  }
 
-    if (isTabActive('requests')) loadRequests();
-    if (isTabActive('profile'))  renderProfile();
-  });
-
-  // ── Tabs ────────────────────────────────────────────────────────────────────
+  // ── Tabs ─────────────────────────────────────────────────────────────────────
   function showTab(name) {
     document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
     document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
@@ -407,13 +732,14 @@
 
     if (name === 'requests') loadRequests();
     if (name === 'profile')  renderProfile();
+    if (name === 'admin')    loadAdminPanel();
   }
 
   function isTabActive(name) {
     return document.getElementById(`tab-${name}`).classList.contains('active');
   }
 
-  // ── Find Games ──────────────────────────────────────────────────────────────
+  // ── Find Games ───────────────────────────────────────────────────────────────
   function renderSessions() {
     const filter    = document.getElementById('sessionFilter').value;
     const filtered  = filter === 'all' ? sessions : sessions.filter(s => s.Status === filter);
@@ -439,9 +765,9 @@
           <div class="sub-text">${s.Location || ''}</div>
         </td>
         <td>${fmtDateTime(s.DateTime)}</td>
-        <td>${s.GameFormat  || '—'}</td>
+        <td>${s.GameFormat   || '—'}</td>
         <td>${s.SkillRequired || '—'}</td>
-        <td>${s.Capacity    || '—'}</td>
+        <td>${s.Capacity     || '—'}</td>
         <td><span class="badge badge-${statusLow}">${s.Status}</span></td>
         <td>
           ${canJoin
@@ -468,7 +794,7 @@
 
   function toggleJoinForm(sessionId) {
     if (!currentPlayer) {
-      showStatus('error', 'Select a player at the top before joining a game.');
+      showStatus('error', 'Complete your player profile before joining a game.');
       return;
     }
     const el = document.getElementById(`jf-${sessionId}`);
@@ -477,7 +803,7 @@
 
   async function submitJoin(sessionId, organizerId) {
     if (!currentPlayer) {
-      showStatus('error', 'Select a player at the top before joining a game.');
+      showStatus('error', 'Complete your player profile before joining a game.');
       return;
     }
     const msg = document.getElementById(`jm-${sessionId}`).value;
@@ -499,7 +825,7 @@
     }
   }
 
-  // ── Courts ──────────────────────────────────────────────────────────────────
+  // ── Courts ───────────────────────────────────────────────────────────────────
   function renderCourts() {
     const container = document.getElementById('courtsList');
     if (!courts.length) {
@@ -513,13 +839,12 @@
 
     courts.forEach(c => {
       const isAvail = c.AvailStatus == 1;
-      const avail   = isAvail ? 'Available' : 'Unavailable';
-      const cls     = isAvail ? 'available' : 'closed';
       html += `<tr>
         <td><strong>${c.Name}</strong></td>
         <td>${c.Location   || '—'}</td>
         <td>${c.Facilities || '—'}</td>
-        <td><span class="badge badge-${cls}">${avail}</span></td>
+        <td><span class="badge badge-${isAvail ? 'available' : 'closed'}">
+              ${isAvail ? 'Available' : 'Unavailable'}</span></td>
       </tr>`;
     });
 
@@ -527,11 +852,11 @@
     container.innerHTML = html;
   }
 
-  // ── My Requests ─────────────────────────────────────────────────────────────
+  // ── My Requests ──────────────────────────────────────────────────────────────
   async function loadRequests() {
     const container = document.getElementById('requestsList');
     if (!currentPlayer) {
-      container.innerHTML = '<div class="empty">Select a player at the top to see your requests.</div>';
+      container.innerHTML = '<div class="empty">Complete your player profile to see join requests.</div>';
       return;
     }
 
@@ -583,39 +908,164 @@
   }
 
   // ── My Profile ───────────────────────────────────────────────────────────────
-  function renderProfile() {
+  async function renderProfile() {
     const container = document.getElementById('profileContent');
-    if (!currentPlayer) {
-      container.innerHTML = '<div class="empty">Select a player at the top to view your profile.</div>';
-      return;
-    }
-
+    const u = currentUser;
     const p = currentPlayer;
-    container.innerHTML = `
+
+    let html = `
       <div class="form-grid-2">
         <div class="profile-stat">
           <label>Username</label>
-          <div class="val">${p.Username}</div>
+          <div class="val">${u.username}</div>
         </div>
         <div class="profile-stat">
-          <label>Games Played</label>
-          <div class="val">${p.GamesPlayed}</div>
+          <label>Account Role</label>
+          <div class="val">${u.isModerator ? 'Moderator (Admin)' : u.organizerID ? 'Game Organizer' : u.playerID ? 'Player' : 'New Account'}</div>
         </div>
       </div>
       <hr class="profile-divider" />
-      <h3 style="margin-bottom:16px">Update Profile</h3>
-      <div class="form-grid-2">
-        <div class="form-row">
-          <label>Skill Level</label>
-          <input type="text" id="profileSkill" value="${p.SkillLevel || ''}" placeholder="e.g. Intermediate" />
-        </div>
-        <div class="form-row">
-          <label>Position</label>
-          <input type="text" id="profilePos" value="${p.Position || ''}" placeholder="e.g. Point Guard" />
-        </div>
-      </div>
-      <button class="btn btn-primary" onclick="saveProfile()">Save Changes</button>
     `;
+
+    if (!p) {
+      // No player profile yet
+      html += `
+        <div class="warn-box">
+          You haven't set up your player profile yet. Complete it to start joining games.
+        </div>
+        <button class="btn btn-primary" onclick="showCompleteProfile()">Complete Profile</button>
+      `;
+    } else {
+      // Player stats + edit form
+      html += `
+        <div class="form-grid-2">
+          <div class="profile-stat"><label>Games Played</label><div class="val">${p.GamesPlayed}</div></div>
+          <div class="profile-stat"><label>Current Position</label><div class="val">${p.Position || '—'}</div></div>
+        </div>
+        <hr class="profile-divider" />
+        <h3 style="margin-bottom:16px">Update Player Info</h3>
+        <div class="form-grid-2">
+          <div class="form-row">
+            <label>Skill Level</label>
+            <select id="profileSkill">
+              <option value="">-- Select --</option>
+              ${['Beginner','Intermediate','Advanced'].map(s =>
+                `<option value="${s}" ${p.SkillLevel===s?'selected':''}>${s}</option>`
+              ).join('')}
+            </select>
+          </div>
+          <div class="form-row">
+            <label>Position</label>
+            <select id="profilePos">
+              <option value="">-- Select --</option>
+              ${['Point Guard','Shooting Guard','Small Forward','Power Forward','Center'].map(pos =>
+                `<option value="${pos}" ${p.Position===pos?'selected':''}>${pos}</option>`
+              ).join('')}
+            </select>
+          </div>
+        </div>
+        <button class="btn btn-primary" onclick="saveProfile()">Save Changes</button>
+
+        <hr class="profile-divider" />
+        <div id="organizerSection"></div>
+      `;
+    }
+
+    // Password change section
+    html += `
+      <hr class="profile-divider" />
+      <h3 style="margin-bottom:16px">Change Password</h3>
+      <div class="form-row">
+        <label>Current Password</label>
+        <input type="password" id="pwCurrent" placeholder="Current password" style="max-width:340px" />
+      </div>
+      <div class="form-row">
+        <label>New Password</label>
+        <input type="password" id="pwNew" placeholder="New password (min. 6 characters)" style="max-width:340px" />
+      </div>
+      <div class="form-row">
+        <label>Confirm New Password</label>
+        <input type="password" id="pwConfirm" placeholder="Repeat new password" style="max-width:340px" />
+      </div>
+      <button class="btn btn-primary" onclick="changePassword()">Update Password</button>
+    `;
+
+    container.innerHTML = html;
+
+    // Load organizer section asynchronously
+    if (p) await loadOrganizerSection();
+  }
+
+  async function loadOrganizerSection() {
+    const section = document.getElementById('organizerSection');
+    if (!section) return;
+
+    if (currentUser.organizerID) {
+      section.innerHTML = `
+        <h3 style="margin-bottom:12px">Organizer Status</h3>
+        <div class="info-box">
+          You are a verified <strong>Game Organizer</strong>.
+          You can create and manage basketball sessions.
+        </div>
+      `;
+      return;
+    }
+
+    // Check for existing request
+    let existing = null;
+    try { existing = await get('/api/organizer-requests/mine'); } catch { /* ignore */ }
+
+    if (existing && existing.Status === 'Pending') {
+      section.innerHTML = `
+        <h3 style="margin-bottom:12px">Organizer Request</h3>
+        <div class="info-box">
+          Your organizer request is <strong>pending</strong> moderator review.
+          You will be notified once a decision is made.
+        </div>
+      `;
+      return;
+    }
+
+    if (existing && existing.Status === 'Denied') {
+      section.innerHTML = `
+        <h3 style="margin-bottom:12px">Become a Game Organizer</h3>
+        <div class="warn-box">Your previous request was denied. You may submit a new one below.</div>
+        ${buildOrgRequestForm()}
+      `;
+      return;
+    }
+
+    // No request yet
+    section.innerHTML = `
+      <h3 style="margin-bottom:12px">Become a Game Organizer</h3>
+      <p style="color:#555;font-size:13px;margin-bottom:14px">
+        Game organizers can create sessions and manage players.
+        A moderator will review your request before it is approved.
+      </p>
+      ${buildOrgRequestForm()}
+    `;
+  }
+
+  function buildOrgRequestForm() {
+    return `
+      <div class="form-row" style="max-width:480px">
+        <label>Why do you want to become an organizer? (optional)</label>
+        <textarea id="orgReqMsg" placeholder="Share your experience or motivation..."
+                  style="min-height:70px"></textarea>
+      </div>
+      <button class="btn btn-primary" onclick="submitOrganizerRequest()">Submit Request</button>
+    `;
+  }
+
+  async function submitOrganizerRequest() {
+    const message = (document.getElementById('orgReqMsg') || {}).value || '';
+    try {
+      await post('/api/organizer-requests', { message });
+      showStatus('success', 'Organizer request submitted! A moderator will review it.');
+      await loadOrganizerSection();
+    } catch (e) {
+      showStatus('error', e.message);
+    }
   }
 
   async function saveProfile() {
@@ -625,32 +1075,58 @@
 
     try {
       await put('/api/Player', currentPlayer.PlayerID, { SkillLevel: skillLevel, Position: position });
-
-      // Update local state
       currentPlayer.SkillLevel = skillLevel;
       currentPlayer.Position   = position;
       const idx = players.findIndex(p => p.PlayerID === currentPlayer.PlayerID);
       if (idx >= 0) { players[idx].SkillLevel = skillLevel; players[idx].Position = position; }
-
       showStatus('success', 'Profile updated successfully!');
     } catch (err) {
       showStatus('error', err.message);
     }
   }
 
-  // ── Leave Feedback ───────────────────────────────────────────────────────────
+  async function changePassword() {
+    const currentPassword = document.getElementById('pwCurrent').value;
+    const newPassword     = document.getElementById('pwNew').value;
+    const confirmPassword = document.getElementById('pwConfirm').value;
+
+    if (!currentPassword || !newPassword || !confirmPassword) {
+      showStatus('error', 'Please fill in all password fields.');
+      return;
+    }
+    if (newPassword !== confirmPassword) {
+      showStatus('error', 'New passwords do not match.');
+      return;
+    }
+    if (newPassword.length < 6) {
+      showStatus('error', 'New password must be at least 6 characters.');
+      return;
+    }
+
+    try {
+      await post('/api/auth/change-password', { currentPassword, newPassword });
+      showStatus('success', 'Password updated successfully!');
+      document.getElementById('pwCurrent').value = '';
+      document.getElementById('pwNew').value     = '';
+      document.getElementById('pwConfirm').value = '';
+    } catch (err) {
+      showStatus('error', err.message);
+    }
+  }
+
+  // ── Leave Feedback ────────────────────────────────────────────────────────────
   document.getElementById('feedbackForm').addEventListener('submit', async e => {
     e.preventDefault();
-    if (!currentPlayer) { showStatus('error', 'Select a player at the top first.'); return; }
+    if (!currentPlayer) { showStatus('error', 'Complete your player profile first.'); return; }
 
     try {
       await post('/api/GameFeedback', {
-        PlayerID:            currentPlayer.PlayerID,
-        SessionID:           parseInt(document.getElementById('feedbackSession').value),
-        SatisfactionRating:  parseInt(document.getElementById('feedbackSat').value),
-        CourtConditionRating:parseInt(document.getElementById('feedbackCourt').value),
-        Comments:            document.getElementById('feedbackComments').value,
-        Timestamp:           new Date().toISOString().slice(0, 19).replace('T', ' ')
+        PlayerID:             currentPlayer.PlayerID,
+        SessionID:            parseInt(document.getElementById('feedbackSession').value),
+        SatisfactionRating:   parseInt(document.getElementById('feedbackSat').value),
+        CourtConditionRating: parseInt(document.getElementById('feedbackCourt').value),
+        Comments:             document.getElementById('feedbackComments').value,
+        Timestamp:            new Date().toISOString().slice(0, 19).replace('T', ' ')
       });
       showStatus('success', 'Feedback submitted successfully!');
       document.getElementById('feedbackForm').reset();
@@ -659,24 +1135,19 @@
     }
   });
 
-  // ── Rate a Player ────────────────────────────────────────────────────────────
+  // ── Rate a Player ─────────────────────────────────────────────────────────────
   document.getElementById('rateForm').addEventListener('submit', async e => {
     e.preventDefault();
-    if (!currentPlayer) { showStatus('error', 'Select a player at the top first.'); return; }
+    if (!currentPlayer) { showStatus('error', 'Complete your player profile first.'); return; }
 
     const ratedPlayerId = parseInt(document.getElementById('ratePlayer').value);
-    if (ratedPlayerId === currentPlayer.PlayerID) {
-      showStatus('error', "You can't rate yourself.");
-      return;
-    }
-
-    const ratedPlayer = players.find(p => p.PlayerID === ratedPlayerId);
+    const ratedPlayer   = players.find(p => p.PlayerID === ratedPlayerId);
     if (!ratedPlayer) { showStatus('error', 'Player not found.'); return; }
 
     try {
       await post('/api/PlayerRating', {
         RaterID:   currentPlayer.PlayerID,
-        RatedID:   ratedPlayer.UserID,           // FK → User
+        RatedID:   ratedPlayer.UserID,
         SessionID: parseInt(document.getElementById('rateSession').value),
         Score:     parseInt(document.getElementById('rateScore').value),
         Comments:  document.getElementById('rateComments').value
@@ -688,19 +1159,19 @@
     }
   });
 
-  // ── Report a User ────────────────────────────────────────────────────────────
+  // ── Report a User ─────────────────────────────────────────────────────────────
   document.getElementById('reportForm').addEventListener('submit', async e => {
     e.preventDefault();
-    if (!currentPlayer) { showStatus('error', 'Select a player at the top first.'); return; }
+    if (!currentPlayer) { showStatus('error', 'Complete your player profile first.'); return; }
     if (!moderators.length) { showStatus('error', 'No moderators in the system.'); return; }
 
     try {
       await post('/api/UserReport', {
         ReporterID:  currentPlayer.PlayerID,
         ReportedID:  parseInt(document.getElementById('reportUser').value),
-        ModeratorID: moderators[0].ModeratorID,   // auto-assigned
+        ModeratorID: moderators[0].ModeratorID,
         Description: document.getElementById('reportDesc').value,
-        Status:      'Open',
+        Status:      'Pending',
         Timestamp:   new Date().toISOString().slice(0, 19).replace('T', ' ')
       });
       showStatus('success', 'Report submitted. A moderator will review it.');
@@ -710,49 +1181,179 @@
     }
   });
 
-  // ── HTTP helpers ─────────────────────────────────────────────────────────────
-  async function get(url) {
-    const res = await fetch(url);
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.error || 'Request failed');
-    return data;
+  // ── Admin panel ───────────────────────────────────────────────────────────────
+  async function loadAdminPanel() {
+    await Promise.all([loadOrgRequests(), loadAdminReports(), loadUserMgmt()]);
   }
 
-  async function post(url, body) {
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body)
-    });
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.error || 'Insert failed');
-    return data;
+  async function loadOrgRequests() {
+    const container = document.getElementById('orgRequestsList');
+    try {
+      const data = await get('/api/organizer-requests');
+      if (!data.length) {
+        container.innerHTML = '<div class="empty">No organizer requests.</div>';
+        return;
+      }
+
+      let html = `<table><thead><tr>
+        <th>Player</th><th>Message</th><th>Status</th><th>Submitted</th><th>Action</th>
+      </tr></thead><tbody>`;
+
+      data.forEach(r => {
+        const statusLow = (r.Status || '').toLowerCase();
+        const isPending = r.Status === 'Pending';
+        html += `<tr>
+          <td><strong>${r.Username}</strong></td>
+          <td>${r.Message || '—'}</td>
+          <td><span class="badge badge-${statusLow}">${r.Status}</span></td>
+          <td>${fmtDate(r.Timestamp)}</td>
+          <td>
+            ${isPending ? `
+              <button class="btn btn-success btn-sm"
+                      onclick="resolveOrgRequest(${r.RequestID}, 'Approved')"
+                      style="margin-right:4px">Approve</button>
+              <button class="btn btn-danger btn-sm"
+                      onclick="resolveOrgRequest(${r.RequestID}, 'Denied')">Deny</button>
+            ` : '—'}
+          </td>
+        </tr>`;
+      });
+
+      html += '</tbody></table>';
+      container.innerHTML = html;
+    } catch (err) {
+      container.innerHTML = `<div class="empty" style="color:#dc2626">Error: ${err.message}</div>`;
+    }
   }
 
-  async function put(url, id, body) {
-    const res = await fetch(`${url}/${id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body)
-    });
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.error || 'Update failed');
-    return data;
+  async function resolveOrgRequest(id, status) {
+    const action = status === 'Approved' ? 'approve' : 'deny';
+    if (!confirm(`${action.charAt(0).toUpperCase() + action.slice(1)} this organizer request?`)) return;
+    try {
+      await authFetch(`/api/organizer-requests/${id}`, {
+        method: 'PUT', body: JSON.stringify({ status })
+      });
+      showStatus('success', `Request ${status.toLowerCase()} successfully.`);
+      loadOrgRequests();
+    } catch (err) {
+      showStatus('error', err.message);
+    }
   }
 
-  async function del(url, id) {
-    const res = await fetch(`${url}/${id}`, { method: 'DELETE' });
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.error || 'Delete failed');
-    return data;
+  async function loadAdminReports() {
+    const container = document.getElementById('adminReportsList');
+    try {
+      const data = await get('/api/admin/reports');
+      if (!data.length) {
+        container.innerHTML = '<div class="empty">No user reports.</div>';
+        return;
+      }
+
+      let html = `<table><thead><tr>
+        <th>Reporter</th><th>Reported</th><th>Description</th>
+        <th>Status</th><th>Date</th><th>Action</th>
+      </tr></thead><tbody>`;
+
+      data.forEach(r => {
+        const statusLow = (r.Status || '').toLowerCase();
+        html += `<tr>
+          <td>${r.ReporterName}</td>
+          <td>${r.ReportedName}</td>
+          <td style="max-width:200px">${r.Description || '—'}</td>
+          <td><span class="badge badge-${statusLow}">${r.Status}</span></td>
+          <td>${fmtDate(r.Timestamp)}</td>
+          <td>
+            ${r.Status === 'Pending' ? `
+              <button class="btn btn-success btn-sm"
+                      onclick="resolveReport(${r.ReportID}, 'Resolved')"
+                      style="margin-right:4px">Resolve</button>
+              <button class="btn btn-muted btn-sm"
+                      onclick="resolveReport(${r.ReportID}, 'Dismissed')">Dismiss</button>
+            ` : '—'}
+          </td>
+        </tr>`;
+      });
+
+      html += '</tbody></table>';
+      container.innerHTML = html;
+    } catch (err) {
+      container.innerHTML = `<div class="empty" style="color:#dc2626">Error: ${err.message}</div>`;
+    }
   }
 
-  // ── Status toast ─────────────────────────────────────────────────────────────
+  async function resolveReport(id, status) {
+    try {
+      await authFetch(`/api/admin/reports/${id}`, {
+        method: 'PUT', body: JSON.stringify({ status })
+      });
+      showStatus('success', `Report marked as ${status.toLowerCase()}.`);
+      loadAdminReports();
+    } catch (err) {
+      showStatus('error', err.message);
+    }
+  }
+
+  async function loadUserMgmt() {
+    const container = document.getElementById('userMgmtList');
+    try {
+      const [allUsers, allMods] = await Promise.all([
+        get('/api/User'),
+        get('/api/Moderator'),
+      ]);
+      const modUserIDs = new Set(allMods.map(m => m.UserID));
+
+      const nonMods = allUsers.filter(u =>
+        !modUserIDs.has(u.UserID) && u.UserID !== currentUser.userID
+      );
+
+      if (!nonMods.length) {
+        container.innerHTML = '<div class="empty">All users are already moderators.</div>';
+        return;
+      }
+
+      let html = `<table><thead><tr>
+        <th>Username</th><th>Email</th><th>Action</th>
+      </tr></thead><tbody>`;
+
+      nonMods.forEach(u => {
+        html += `<tr>
+          <td><strong>${u.Username}</strong></td>
+          <td>${u.Email || '—'}</td>
+          <td>
+            <button class="btn btn-primary btn-sm"
+                    onclick="promoteToModerator(${u.UserID}, '${u.Username}')">
+              Promote to Moderator
+            </button>
+          </td>
+        </tr>`;
+      });
+
+      html += '</tbody></table>';
+      container.innerHTML = html;
+    } catch (err) {
+      container.innerHTML = `<div class="empty" style="color:#dc2626">Error: ${err.message}</div>`;
+    }
+  }
+
+  async function promoteToModerator(userID, username) {
+    if (!confirm(`Promote "${username}" to moderator? They will gain access to the admin panel.`)) return;
+    try {
+      await authFetch('/api/admin/moderators', {
+        method: 'POST', body: JSON.stringify({ userID })
+      });
+      showStatus('success', `${username} is now a moderator.`);
+      loadUserMgmt();
+    } catch (err) {
+      showStatus('error', err.message);
+    }
+  }
+
+  // ── Status toast ──────────────────────────────────────────────────────────────
   let statusTimer = null;
   function showStatus(type, msg) {
     const el = document.getElementById('status');
-    el.className = type;
-    el.textContent = (type === 'success' ? '✓ ' : '✗ ') + msg;
+    el.className   = type === 'info' ? 'success' : type;
+    el.textContent = (type === 'success' || type === 'info' ? '✓ ' : '✗ ') + msg;
     if (statusTimer) clearTimeout(statusTimer);
     statusTimer = setTimeout(() => { el.className = ''; el.textContent = ''; }, 5000);
   }
@@ -768,8 +1369,7 @@
   }
   function makeOption(value, text) {
     const o = document.createElement('option');
-    o.value = value;
-    o.textContent = text;
+    o.value = value; o.textContent = text;
     return o;
   }
 
